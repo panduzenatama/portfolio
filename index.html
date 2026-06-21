@@ -11,24 +11,23 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%3C/text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #08090a;
-      --bg-panel: #0f1011;
-      --bg-elevated: #191a1b;
-      --bg-surface: rgba(255,255,255,0.02);
-      --bg-surface-hover: rgba(255,255,255,0.05);
-      --text-primary: #f7f8f8;
-      --text-secondary: #d0d6e0;
-      --text-tertiary: #8a8f98;
-      --text-quaternary: #62666d;
-      --accent: #5e6ad2;
-      --accent-bright: #7170ff;
-      --accent-hover: #828fff;
-      --border-subtle: rgba(255,255,255,0.05);
-      --border: rgba(255,255,255,0.08);
-      --success: #10b981;
+      --bg: #171717;
+      --bg-deep: #0f0f0f;
+      --text-primary: #fafafa;
+      --text-secondary: #b4b4b4;
+      --text-muted: #898989;
+      --text-dim: #4d4d4d;
+      --green: #3ecf8e;
+      --green-link: #00c573;
+      --green-border: rgba(62, 207, 142, 0.3);
+      --border-subtle: #242424;
+      --border: #2e2e2e;
+      --border-hover: #363636;
+      --border-light: #393939;
+      --charcoal: #434343;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,19 +37,22 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       color: var(--text-secondary);
       background: var(--bg);
-      font-feature-settings: 'cv01', 'ss03';
-      font-size: 15px;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
+    a { color: var(--green-link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     /* --- Animations --- */
     .fade-in {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
@@ -60,13 +62,13 @@
       top: 0;
       width: 100%;
       z-index: 50;
-      background: rgba(8,9,10,0.85);
+      background: rgba(23, 23, 23, 0.8);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-subtle);
     }
     .nav-inner {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0 24px;
       height: 56px;
@@ -76,67 +78,67 @@
     }
     .nav-logo {
       font-weight: 600;
-      font-size: 14px;
-      letter-spacing: -0.3px;
+      font-size: 15px;
       color: var(--text-primary);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .nav-logo span { color: var(--accent-bright); }
-    .nav-links { display: flex; gap: 32px; }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-logo .dot { color: var(--green); font-weight: 700; }
+    .nav-links { display: flex; gap: 28px; }
     .nav-links a {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
-      color: var(--text-tertiary);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.2s;
-      letter-spacing: -0.1px;
+      transition: color 0.15s;
     }
-    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
     .nav-mobile-btn {
       display: none;
       background: none;
       border: none;
-      color: var(--text-tertiary);
+      color: var(--text-secondary);
       cursor: pointer;
       padding: 4px;
     }
 
     /* --- Layout --- */
-    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 96px 24px; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 120px 24px; }
 
-    /* --- Overline label --- */
+    /* --- Overline label (Source Code Pro uppercase) --- */
     .overline {
-      font-size: 11px;
-      font-weight: 500;
+      font-family: 'Source Code Pro', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 400;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: var(--text-quaternary);
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      margin-bottom: 16px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
     }
 
     /* --- Headings --- */
     h1 {
-      font-size: clamp(40px, 8vw, 72px);
-      font-weight: 510;
+      font-size: clamp(48px, 10vw, 72px);
+      font-weight: 400;
       line-height: 1.0;
-      letter-spacing: -1.584px;
       color: var(--text-primary);
     }
     h2 {
-      font-size: clamp(24px, 4vw, 32px);
+      font-size: clamp(28px, 5vw, 36px);
       font-weight: 400;
-      line-height: 1.13;
-      letter-spacing: -0.704px;
+      line-height: 1.25;
       color: var(--text-primary);
       margin-bottom: 12px;
     }
     h3 {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 400;
       line-height: 1.33;
-      letter-spacing: -0.24px;
+      letter-spacing: -0.16px;
       color: var(--text-primary);
     }
 
@@ -144,77 +146,101 @@
     .body-lg {
       font-size: 18px;
       font-weight: 400;
-      line-height: 1.6;
-      letter-spacing: -0.165px;
+      line-height: 1.56;
     }
     .body-md {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400;
-      line-height: 1.6;
-      letter-spacing: -0.165px;
-      color: var(--text-tertiary);
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .body-sm {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.43;
+      color: var(--text-muted);
     }
 
     /* --- Buttons --- */
-    .btn-primary {
+    .btn-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--accent);
-      color: #fff;
+      background: var(--bg-deep);
+      color: var(--text-primary);
       font-size: 14px;
       font-weight: 500;
-      padding: 10px 20px;
-      border-radius: 6px;
+      line-height: 1.14;
+      padding: 10px 32px;
+      border-radius: 9999px;
+      text-decoration: none;
+      border: 1px solid var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .btn-pill:hover { background: rgba(255,255,255,0.06); text-decoration: none; }
+
+    .btn-pill-muted {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.14;
+      padding: 10px 32px;
+      border-radius: 9999px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.15s;
+      opacity: 0.85;
+    }
+    .btn-pill-muted:hover { border-color: var(--border-hover); opacity: 1; text-decoration: none; }
+
+    .btn-green {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: var(--bg-deep);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.14;
+      padding: 10px 24px;
+      border-radius: 9999px;
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s;
+      transition: background 0.15s;
     }
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 0 20px rgba(94,106,210,0.25);
-    }
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-surface);
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.08);
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .btn-ghost:hover {
-      background: var(--bg-surface-hover);
-      border-color: rgba(255,255,255,0.15);
-    }
+    .btn-green:hover { background: var(--green-link); text-decoration: none; }
 
     /* --- Cards --- */
     .card {
-      background: var(--bg-surface);
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 24px;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s;
     }
-    .card:hover {
-      background: var(--bg-surface-hover);
-      border-color: rgba(255,255,255,0.12);
+    .card:hover { border-color: var(--border-hover); }
+
+    .card-green {
+      background: var(--bg);
+      border: 1px solid var(--green-border);
+      border-radius: 12px;
+      padding: 24px;
     }
 
     /* --- Grid --- */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     @media (max-width: 768px) {
       .grid-2 { grid-template-columns: 1fr; gap: 24px; }
-      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-      section { padding: 64px 20px; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      section { padding: 80px 20px; }
       .nav-links { display: none; }
       .nav-mobile-btn { display: block; }
       .nav-links.open {
@@ -224,7 +250,7 @@
         top: 56px;
         left: 0;
         right: 0;
-        background: rgba(8,9,10,0.97);
+        background: rgba(23,23,23,0.97);
         backdrop-filter: blur(12px);
         padding: 24px;
         gap: 20px;
@@ -240,17 +266,9 @@
       padding: 6px 0;
     }
 
-    /* --- Section divider --- */
-    .section-spacer {
-      height: 1px;
-      background: var(--border-subtle);
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
     /* --- Footer --- */
     footer {
-      padding: 32px 24px;
+      padding: 40px 24px;
       border-top: 1px solid var(--border-subtle);
     }
     footer .container {
@@ -258,11 +276,15 @@
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
-      color: var(--text-quaternary);
+      color: var(--text-dim);
     }
     footer .mono {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-family: 'Source Code Pro', ui-monospace, monospace;
+      letter-spacing: 0.5px;
     }
+
+    /* --- Green accent dot --- */
+    .accent { color: var(--green); }
 
     /* --- Reduced motion --- */
     @media (prefers-reduced-motion: reduce) {
@@ -275,7 +297,7 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">pandu<span>.</span></a>
+      <a href="#" class="nav-logo">pandu<span class="dot">.</span></a>
       <button class="nav-mobile-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -289,16 +311,16 @@
   </nav>
 
   <!-- HERO -->
-  <section style="min-height:85vh;display:flex;align-items:center;padding-top:56px;">
+  <section style="min-height:80vh;display:flex;align-items:center;padding-top:56px;">
     <div class="container">
       <div class="fade-in">
         <p class="overline">Full-Stack Developer</p>
-        <h1>Pandu Zenatama.</h1>
-        <p class="body-lg" style="color:var(--text-tertiary);max-width:520px;margin-top:24px;margin-bottom:40px;">
+        <h1>Pandu Zenatama<span class="accent">.</span></h1>
+        <p class="body-lg" style="color:var(--text-muted);max-width:480px;margin-top:28px;margin-bottom:48px;">
           Real problems, working solutions. Code that matters.
         </p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-ghost">
+          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-pill-muted">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
@@ -308,12 +330,12 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" style="border-top:1px solid var(--border-subtle);">
     <div class="container">
       <div class="fade-in">
         <p class="overline">Tentang</p>
         <h2>Developer yang Berfokus<br>pada Dampak Bisnis</h2>
-        <div class="grid-2" style="margin-top:32px;">
+        <div class="grid-2" style="margin-top:40px;">
           <div>
             <p class="body-md" style="margin-bottom:16px;">
               Memulai karir sebagai freelance web developer sejak 2018. Berpengalaman menangani berbagai proyek mulai dari website bisnis, sistem informasi, hingga aplikasi internal untuk klien di berbagai industri.
@@ -336,15 +358,15 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" style="background:var(--bg-panel);">
+  <section id="projects" style="border-top:1px solid var(--border-subtle);">
     <div class="container">
       <div class="fade-in">
         <p class="overline">Proyek</p>
         <h2>Proyek yang Telah Dikerjakan</h2>
-        <p class="body-md" style="max-width:520px;margin-bottom:32px;">
+        <p class="body-md" style="max-width:520px;margin-bottom:40px;">
           Aplikasi internal, otomasi konten, dan sistem informasi yang dibangun untuk klien nyata maupun proyek pribadi. Buka halaman proyek untuk detail lengkap tiap item.
         </p>
-        <a href="projects/index.html" class="btn-primary">
+        <a href="projects/index.html" class="btn-green">
           Lihat Semua Proyek
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
@@ -353,7 +375,7 @@
   </section>
 
   <!-- TECH STACK -->
-  <section id="stack">
+  <section id="stack" style="border-top:1px solid var(--border-subtle);">
     <div class="container">
       <div class="fade-in">
         <p class="overline">Tech Stack</p>
@@ -361,7 +383,7 @@
         <div class="grid-4" style="margin-top:40px;">
 
           <div class="card">
-            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">BACKEND</p>
+            <p class="overline" style="margin-bottom:14px;">Backend</p>
             <div>
               <p class="tech-item">PHP</p>
               <p class="tech-item">CodeIgniter</p>
@@ -371,7 +393,7 @@
           </div>
 
           <div class="card">
-            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">FRONTEND</p>
+            <p class="overline" style="margin-bottom:14px;">Frontend</p>
             <div>
               <p class="tech-item">Next.js</p>
               <p class="tech-item">React</p>
@@ -383,7 +405,7 @@
           </div>
 
           <div class="card">
-            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">TOOLS</p>
+            <p class="overline" style="margin-bottom:14px;">Tools</p>
             <div>
               <p class="tech-item">Git / GitHub</p>
               <p class="tech-item">Docker</p>
@@ -394,7 +416,7 @@
           </div>
 
           <div class="card">
-            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">DOMAIN</p>
+            <p class="overline" style="margin-bottom:14px;">Domain</p>
             <div>
               <p class="tech-item">Business Apps</p>
               <p class="tech-item">POS / Inventory</p>
@@ -411,20 +433,20 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" style="background:var(--bg-panel);">
+  <section id="contact" style="border-top:1px solid var(--border-subtle);">
     <div class="container">
       <div class="fade-in">
         <p class="overline">Kontak</p>
         <h2>Tertarik Bekerja Sama?</h2>
-        <p class="body-md" style="max-width:480px;margin-bottom:32px;">
+        <p class="body-md" style="max-width:480px;margin-bottom:40px;">
           Membutuhkan developer untuk membangun aplikasi web, sistem internal, atau automasi proses bisnis? Silakan hubungi untuk mendiskusikan kebutuhan proyek Anda.
         </p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-ghost">
+          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-pill-muted">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="https://github.com/Rascalsz" target="_blank" rel="noopener" class="btn-ghost">
+          <a href="https://github.com/Rascalsz" target="_blank" rel="noopener" class="btn-pill-muted">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub (Alt)
           </a>
