@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peternakan — Pandu Zenatama</title>
+  <meta name="description" content="Aplikasi pencatatan operasional peternakan: data ayam, pakan, dan produksi telur.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0a0a0a',
+            card: '#111111',
+            border: '#1a1a1a',
+            muted: '#71717a',
+            accent: '#3b82f6',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: #0a0a0a; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="../index.html#projects" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Portfolio</a>
+      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-16 px-6">
+    <div class="max-w-3xl mx-auto">
+
+      <!-- Header -->
+      <div class="fade-in mb-10">
+        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">Peternakan</h1>
+        <div class="flex items-center gap-3 text-sm text-zinc-400">
+          <span class="text-accent font-mono">2018 – 2026</span>
+          <span class="text-zinc-600">·</span>
+          <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Local / Request Access</span>
+        </div>
+      </div>
+
+      <!-- Screenshot -->
+      <div class="fade-in mb-10 rounded-xl overflow-hidden border border-border">
+        <img src="../assets/projects/peternakan.png" alt="Screenshot aplikasi Peternakan" class="w-full object-cover">
+      </div>
+
+      <!-- Overview -->
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Tentang Proyek</h2>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+          Aplikasi pencatatan operasional peternakan untuk pemilik usaha kecil-menengah. Dibangun untuk menggantikan pencatatan manual pada buku catatan: dari data ayam, pakan, produksi telur, hingga ringkasan harian yang siap dicetak.
+        </p>
+        <p class="text-zinc-400 text-sm leading-relaxed">
+          Fokus pada input data yang cepat dari perangkat mobile, dan output yang siap cetak untuk kebutuhan audit, pelaporan, atau pengajuan ke pihak ketiga.
+        </p>
+      </div>
+
+      <!-- Fitur -->
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Fitur Utama</h2>
+        <ul class="space-y-2 text-zinc-400 text-sm">
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Input harian: data ayam, pakan, produksi telur</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Dashboard ringkasan per periode</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Cetak laporan siap audit/pengajuan</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Edit data historis dengan validasi</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Ekspor data (PDF/Excel) sesuai kebutuhan</li>
+        </ul>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Tech Stack</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">PHP</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">MySQL</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Bootstrap</span>
+        </div>
+      </div>
+
+      <!-- Request Access -->
+      <div class="fade-in mb-10 p-5 bg-card border border-border rounded-xl">
+        <p class="text-sm text-zinc-300 mb-1 font-medium">Ingin melihat demo?</p>
+        <p class="text-sm text-zinc-500">Aplikasi ini berjalan di server lokal. Hubungi saya untuk request akses preview atau konsultasi proyek serupa.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.fade-in').forEach(el => new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible') }, {threshold:0.1}).observe(el));
+  </script>
+</body>
+</html>
