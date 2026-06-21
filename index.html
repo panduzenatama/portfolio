@@ -9,133 +9,298 @@
   <meta property="og:description" content="Full-stack web developer specializing in business applications.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%3C/text></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: '#0a0a0a',
-            card: '#111111',
-            border: '#1a1a1a',
-            muted: '#71717a',
-            accent: '#3b82f6',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { background: #0a0a0a; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
+    :root {
+      --bg: #08090a;
+      --bg-panel: #0f1011;
+      --bg-elevated: #191a1b;
+      --bg-surface: rgba(255,255,255,0.02);
+      --bg-surface-hover: rgba(255,255,255,0.05);
+      --text-primary: #f7f8f8;
+      --text-secondary: #d0d6e0;
+      --text-tertiary: #8a8f98;
+      --text-quaternary: #62666d;
+      --accent: #5e6ad2;
+      --accent-bright: #7170ff;
+      --accent-hover: #828fff;
+      --border-subtle: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --success: #10b981;
+    }
 
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: var(--bg); }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text-secondary);
+      background: var(--bg);
+      font-feature-settings: 'cv01', 'ss03';
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* --- Animations --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    .project-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08); }
-    .screenshot-placeholder {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      aspect-ratio: 16/9;
+    /* --- Nav --- */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      position: relative;
+      justify-content: space-between;
     }
-    .screenshot-placeholder::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2rem;
-      background: rgba(0,0,0,0.3);
-      display: flex;
+    .nav-logo {
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent-bright); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: -0.1px;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-mobile-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* --- Layout --- */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 96px 24px; }
+
+    /* --- Overline label --- */
+    .overline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-quaternary);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      margin-bottom: 16px;
+    }
+
+    /* --- Headings --- */
+    h1 {
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 510;
+      line-height: 1.0;
+      letter-spacing: -1.584px;
+      color: var(--text-primary);
+    }
+    h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 400;
+      line-height: 1.13;
+      letter-spacing: -0.704px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.33;
+      letter-spacing: -0.24px;
+      color: var(--text-primary);
+    }
+
+    /* --- Body text --- */
+    .body-lg {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.165px;
+    }
+    .body-md {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.165px;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Buttons --- */
+    .btn-primary {
+      display: inline-flex;
       align-items: center;
-      padding: 0 0.75rem;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
     }
-    .screenshot-placeholder .dots {
-      position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
-      display: flex;
-      gap: 0.375rem;
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 20px rgba(94,106,210,0.25);
     }
-    .screenshot-placeholder .dots span {
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .screenshot-placeholder .dots span:nth-child(1) { background: #ef4444; }
-    .screenshot-placeholder .dots span:nth-child(2) { background: #eab308; }
-    .screenshot-placeholder .dots span:nth-child(3) { background: #22c55e; }
-    .screenshot-placeholder .label {
-      color: rgba(255,255,255,0.4);
-      font-size: 0.875rem;
-      font-family: monospace;
+    .btn-ghost:hover {
+      background: var(--bg-surface-hover);
+      border-color: rgba(255,255,255,0.15);
     }
 
-    .tech-pill { transition: background 0.15s ease, color 0.15s ease; }
-    .tech-pill:hover { background: #3b82f6; color: #fff; }
+    /* --- Cards --- */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      background: var(--bg-surface-hover);
+      border-color: rgba(255,255,255,0.12);
+    }
 
-    .nav-link { position: relative; }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
+    /* --- Grid --- */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; gap: 24px; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      section { padding: 64px 20px; }
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(8,9,10,0.97);
+        backdrop-filter: blur(12px);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+    }
+
+    /* --- Tech item --- */
+    .tech-item {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      padding: 6px 0;
+    }
+
+    /* --- Section divider --- */
+    .section-spacer {
       height: 1px;
-      background: #3b82f6;
-      transition: width 0.2s ease;
+      background: var(--border-subtle);
+      max-width: 960px;
+      margin: 0 auto;
     }
-    .nav-link:hover::after { width: 100%; }
 
+    /* --- Footer --- */
+    footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-quaternary);
+    }
+    footer .mono {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    /* --- Reduced motion --- */
     @media (prefers-reduced-motion: reduce) {
       .fade-in { opacity: 1; transform: none; transition: none; }
-      .project-card { transition: none; }
-      .nav-link::after { transition: none; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
-    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href="#" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
-      <div class="flex gap-6 text-sm text-muted">
-        <a href="#about" class="nav-link hover:text-zinc-100 transition-colors">Tentang</a>
-        <a href="#projects" class="nav-link hover:text-zinc-100 transition-colors">Proyek</a>
-        <a href="#stack" class="nav-link hover:text-zinc-100 transition-colors">Tech Stack</a>
-        <a href="#contact" class="nav-link hover:text-zinc-100 transition-colors">Kontak</a>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">pandu<span>.</span></a>
+      <button class="nav-mobile-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="nav-links">
+        <a href="#about">Tentang</a>
+        <a href="#projects">Proyek</a>
+        <a href="#stack">Tech Stack</a>
+        <a href="#contact">Kontak</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="min-h-[85vh] flex items-center px-6 pt-14">
-    <div class="max-w-4xl mx-auto w-full">
+  <section style="min-height:85vh;display:flex;align-items:center;padding-top:56px;">
+    <div class="container">
       <div class="fade-in">
-        <p class="text-sm text-muted font-mono mb-4 tracking-wider">FULL-STACK DEVELOPER</p>
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-          Pandu Zenatama<span class="text-accent">.</span>
-        </h1>
-        <p class="text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed mb-8">
+        <p class="overline">Full-Stack Developer</p>
+        <h1>Pandu Zenatama.</h1>
+        <p class="body-lg" style="color:var(--text-tertiary);max-width:520px;margin-top:24px;margin-bottom:40px;">
           Real problems, working solutions. Code that matters.
         </p>
-        <div class="flex gap-4">
-          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-card border border-border hover:border-zinc-600 text-zinc-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
         </div>
       </div>
@@ -143,25 +308,25 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="py-24 px-6">
-    <div class="max-w-4xl mx-auto">
+  <section id="about">
+    <div class="container">
       <div class="fade-in">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">TENTANG</p>
-        <h2 class="text-2xl md:text-3xl font-bold mb-6">Developer yang Berfokus pada Dampak Bisnis</h2>
-        <div class="grid md:grid-cols-2 gap-12 text-zinc-400 leading-relaxed">
+        <p class="overline">Tentang</p>
+        <h2>Developer yang Berfokus<br>pada Dampak Bisnis</h2>
+        <div class="grid-2" style="margin-top:32px;">
           <div>
-            <p class="mb-4">
+            <p class="body-md" style="margin-bottom:16px;">
               Memulai karir sebagai freelance web developer sejak 2018. Berpengalaman menangani berbagai proyek mulai dari website bisnis, sistem informasi, hingga aplikasi internal untuk klien di berbagai industri.
             </p>
-            <p>
+            <p class="body-md">
               Filosofinya sederhana: teknologi harus mempermudah hidup, bukan menambah rumit. Setiap fitur yang dibangun harus punya jawaban jelas — siapa yang diuntungkan dan mengapa.
             </p>
           </div>
           <div>
-            <p class="mb-4">
+            <p class="body-md" style="margin-bottom:16px;">
               Fokus utama: business applications (point of sale, inventory, keuangan), web automation, dan tool development. Mulai dari backend logic hingga UI yang dapat digunakan oleh pengguna non-teknis sehari-hari.
             </p>
-            <p>
+            <p class="body-md">
               Berbasis di Klaten, Jawa Tengah. Tersedia untuk proyek remote maupun on-site untuk wilayah sekitar.
             </p>
           </div>
@@ -171,74 +336,72 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="py-24 px-6 bg-card/50">
-    <div class="max-w-4xl mx-auto">
+  <section id="projects" style="background:var(--bg-panel);">
+    <div class="container">
       <div class="fade-in">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Proyek yang Telah Dikerjakan</h2>
-        <p class="text-zinc-400 text-sm leading-relaxed mb-8">
+        <p class="overline">Proyek</p>
+        <h2>Proyek yang Telah Dikerjakan</h2>
+        <p class="body-md" style="max-width:520px;margin-bottom:32px;">
           Aplikasi internal, otomasi konten, dan sistem informasi yang dibangun untuk klien nyata maupun proyek pribadi. Buka halaman proyek untuk detail lengkap tiap item.
         </p>
-        <a href="projects/index.html" class="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors group">
+        <a href="projects/index.html" class="btn-primary">
           Lihat Semua Proyek
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
     </div>
   </section>
 
   <!-- TECH STACK -->
-  <section id="stack" class="py-24 px-6">
-    <div class="max-w-4xl mx-auto">
+  <section id="stack">
+    <div class="container">
       <div class="fade-in">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">TECH STACK</p>
-        <h2 class="text-2xl md:text-3xl font-bold mb-10">Teknologi yang Digunakan</h2>
+        <p class="overline">Tech Stack</p>
+        <h2>Teknologi yang Digunakan</h2>
+        <div class="grid-4" style="margin-top:40px;">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-          <div class="bg-card border border-border rounded-xl p-5">
-            <p class="text-xs text-muted font-mono mb-3">BACKEND</p>
-            <div class="space-y-2 text-sm">
-              <p class="text-zinc-300">PHP</p>
-              <p class="text-zinc-300">CodeIgniter</p>
-              <p class="text-zinc-300">Node.js</p>
-              <p class="text-zinc-300">MySQL</p>
+          <div class="card">
+            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">BACKEND</p>
+            <div>
+              <p class="tech-item">PHP</p>
+              <p class="tech-item">CodeIgniter</p>
+              <p class="tech-item">Node.js</p>
+              <p class="tech-item">MySQL</p>
             </div>
           </div>
 
-          <div class="bg-card border border-border rounded-xl p-5">
-            <p class="text-xs text-muted font-mono mb-3">FRONTEND</p>
-            <div class="space-y-2 text-sm">
-              <p class="text-zinc-300">Next.js</p>
-              <p class="text-zinc-300">React</p>
-              <p class="text-zinc-300">CSS</p>
-              <p class="text-zinc-300">Tailwind</p>
-              <p class="text-zinc-300">jQuery</p>
-              <p class="text-zinc-300">Bootstrap</p>
-              <p class="text-zinc-300">JavaScript</p>
+          <div class="card">
+            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">FRONTEND</p>
+            <div>
+              <p class="tech-item">Next.js</p>
+              <p class="tech-item">React</p>
+              <p class="tech-item">Tailwind</p>
+              <p class="tech-item">JavaScript</p>
+              <p class="tech-item">jQuery</p>
+              <p class="tech-item">Bootstrap</p>
             </div>
           </div>
 
-          <div class="bg-card border border-border rounded-xl p-5">
-            <p class="text-xs text-muted font-mono mb-3">TOOLS</p>
-            <div class="space-y-2 text-sm">
-              <p class="text-zinc-300">Git / GitHub</p>
-              <p class="text-zinc-300">Docker</p>
-              <p class="text-zinc-300">Linux / WSL</p>
-              <p class="text-zinc-300">Telegram Bot API</p>
-              <p class="text-zinc-300">REST APIs</p>
+          <div class="card">
+            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">TOOLS</p>
+            <div>
+              <p class="tech-item">Git / GitHub</p>
+              <p class="tech-item">Docker</p>
+              <p class="tech-item">Linux / WSL</p>
+              <p class="tech-item">Telegram Bot API</p>
+              <p class="tech-item">REST APIs</p>
             </div>
           </div>
 
-          <div class="bg-card border border-border rounded-xl p-5">
-            <p class="text-xs text-muted font-mono mb-3">DOMAIN</p>
-            <div class="space-y-2 text-sm">
-              <p class="text-zinc-300">Business Apps</p>
-              <p class="text-zinc-300">POS / Inventory</p>
-              <p class="text-zinc-300">Web Automation</p>
-              <p class="text-zinc-300">Data Processing</p>
-              <p class="text-zinc-300">Content Pipeline</p>
-              <p class="text-zinc-300">API Integration</p>
+          <div class="card">
+            <p style="font-size:11px;font-weight:500;letter-spacing:1px;color:var(--text-quaternary);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">DOMAIN</p>
+            <div>
+              <p class="tech-item">Business Apps</p>
+              <p class="tech-item">POS / Inventory</p>
+              <p class="tech-item">Web Automation</p>
+              <p class="tech-item">Data Processing</p>
+              <p class="tech-item">Content Pipeline</p>
+              <p class="tech-item">API Integration</p>
             </div>
           </div>
 
@@ -248,20 +411,20 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="py-24 px-6 bg-card/50">
-    <div class="max-w-4xl mx-auto">
+  <section id="contact" style="background:var(--bg-panel);">
+    <div class="container">
       <div class="fade-in">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">KONTAK</p>
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Tertarik Bekerja Sama?</h2>
-        <p class="text-zinc-400 mb-8 max-w-lg">
+        <p class="overline">Kontak</p>
+        <h2>Tertarik Bekerja Sama?</h2>
+        <p class="body-md" style="max-width:480px;margin-bottom:32px;">
           Membutuhkan developer untuk membangun aplikasi web, sistem internal, atau automasi proses bisnis? Silakan hubungi untuk mendiskusikan kebutuhan proyek Anda.
         </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-surface border border-border hover:border-zinc-600 text-zinc-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://github.com/panduzenatama" target="_blank" rel="noopener" class="btn-ghost">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="https://github.com/Rascalsz" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-surface border border-border hover:border-zinc-600 text-zinc-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
+          <a href="https://github.com/Rascalsz" target="_blank" rel="noopener" class="btn-ghost">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             GitHub (Alt)
           </a>
@@ -271,10 +434,10 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-8 px-6 border-t border-border">
-    <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
+  <footer>
+    <div class="container">
       <p>2026 Pandu Zenatama. Dibangun dengan teliti.</p>
-      <p class="font-mono">Klaten, Jawa Tengah</p>
+      <p class="mono">Klaten, Jawa Tengah</p>
     </div>
   </footer>
 
@@ -288,7 +451,6 @@
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 
