@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyek — Pandu Zenatama</title>
+  <meta name="description" content="Daftar proyek yang telah dikerjakan: aplikasi internal, otomasi konten, dan sistem informasi.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0a0a0a',
+            card: '#111111',
+            border: '#1a1a1a',
+            muted: '#71717a',
+            accent: '#3b82f6',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: #0a0a0a; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .project-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08); }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .screenshot-placeholder::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2rem;
+      background: rgba(0,0,0,0.3);
+    }
+    .screenshot-placeholder .dots {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      display: flex;
+      gap: 0.375rem;
+    }
+    .screenshot-placeholder .dots span {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+    .screenshot-placeholder .dots span:nth-child(1) { background: #ef4444; }
+    .screenshot-placeholder .dots span:nth-child(2) { background: #eab308; }
+    .screenshot-placeholder .dots span:nth-child(3) { background: #22c55e; }
+    .screenshot-placeholder .label {
+      color: rgba(228, 228, 231, 0.5);
+      font-size: 0.875rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="../index.html" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Home</a>
+      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-16 px-6">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Header -->
+      <div class="fade-in mb-12">
+        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">Proyek yang Telah Dikerjakan</h1>
+        <p class="text-zinc-400 text-sm leading-relaxed max-w-2xl">
+          Aplikasi internal, otomasi konten, dan sistem informasi yang dibangun untuk klien nyata maupun proyek pribadi. Klik kartu untuk melihat detail lengkap tiap proyek.
+        </p>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="grid gap-6">
+
+        <!-- Catetin -->
+        <a href="catetin.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: Catetin Dashboard</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">Catetin</h3>
+                <p class="text-sm text-accent font-mono">2026</p>
+              </div>
+              <span class="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full font-medium">Active</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Aplikasi pencatatan keuangan untuk warung dan toko kecil. POS, manajemen stok, piutang/hutang, laporan keuangan, dan export Excel.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">Next.js · TypeScript · Supabase · Tailwind</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- YouTube Pipeline -->
+        <a href="youtube-pipeline.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #1e1e2e 0%, #2d1b4e 50%, #1a1a2e 100%);">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: YouTube Pipeline</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">YouTube Content Pipeline</h3>
+                <p class="text-sm text-accent font-mono">2025 - 2026</p>
+              </div>
+              <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-medium">Running</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Sistem otomasi konten YouTube: scrape video sumber, clip highlight sesuai niche, generate subtitle karaoke, dan upload terjadwal. Multi-channel, fully automated.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">Python · Whisper · yt-dlp · FFmpeg · YouTube API</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Owntown Bot -->
+        <a href="owntown-bot.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #1a2e1a 0%, #1e3a2f 50%, #0f2e1e 100%);">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: Owntown Bot Terminal</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">Owntown Farming Bot</h3>
+                <p class="text-sm text-accent font-mono">2026</p>
+              </div>
+              <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Paused</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Bot otomasi farming untuk game MMO berbasis Solana. Multi-node mining, fishing, combat, PvP, marketplace intelligence, crafting, dan profit reporting via Telegram.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">Node.js · Socket.io · Solana · Telegram Bot</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Beasiswa -->
+        <a href="beasiswa.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder" style="background: linear-gradient(135deg,#1f2937 0%,#0f172a 50%,#1e293b 100%);">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: Beasiswa</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">Beasiswa</h3>
+                <p class="text-sm text-accent font-mono">2018 - 2026</p>
+              </div>
+              <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Local / Request Access</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Sistem informasi beasiswa: pendaftaran siswa, verifikasi admin, dan pelaporan data penerima.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">PHP · MySQL · Bootstrap</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Smahika -->
+        <a href="smahika.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder" style="background: linear-gradient(135deg,#3b1d1d 0%,#1f1410 50%,#2a1612 100%);">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: Smahika</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">Smahika</h3>
+                <p class="text-sm text-accent font-mono">2018 - 2026</p>
+              </div>
+              <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Local / Request Access</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Aplikasi internal sekolah: data akademik, pencarian cepat, dan tampilan siap cetak untuk pengguna non-teknis.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">PHP · MySQL · Bootstrap</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Peternakan -->
+        <a href="peternakan.html" class="project-card fade-in bg-surface border border-border rounded-xl overflow-hidden block hover:border-accent/60 transition-colors group">
+          <div class="screenshot-placeholder" style="background: linear-gradient(135deg,#1d3b25 0%,#0f1f15 50%,#122a1a 100%);">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="label">Screenshot: Peternakan</div>
+          </div>
+          <div class="p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">Peternakan</h3>
+                <p class="text-sm text-accent font-mono">2018 - 2026</p>
+              </div>
+              <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Local / Request Access</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+              Pencatatan operasional peternakan: data ayam, pakan, produksi telur, ringkasan harian, dan pencetakan laporan.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-zinc-500 font-mono">PHP · MySQL · Bootstrap</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.fade-in').forEach(el => new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible') }, {threshold:0.1}).observe(el));
+  </script>
+</body>
+</html>
