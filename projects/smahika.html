@@ -3,113 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smahika — Pandu Zenatama</title>
-  <meta name="description" content="Aplikasi internal berbasis web untuk pengelolaan data dan aktivitas sekolah.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: '#0a0a0a',
-            card: '#111111',
-            border: '#1a1a1a',
-            muted: '#71717a',
-            accent: '#3b82f6',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>SMAHIKA — Pandu Zenatama</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { background: #0a0a0a; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0e27;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.3s;
+    }
+    .nav-back:hover {
+      color: #0ea5e9;
+    }
+    .header {
+      margin-bottom: 60px;
+    }
+    .header-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: #888;
+    }
+    .status-badge {
+      background: #6366f1;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .description {
+      margin-bottom: 60px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b0b0b0;
+      max-width: 800px;
+    }
+    .tech-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .tech-badge {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      color: #0ea5e9;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .feature-card {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 24px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
+    }
+    .feature-icon {
+      font-size: 28px;
+      color: #0ea5e9;
+      margin-bottom: 12px;
+    }
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+    .feature-text {
+      font-size: 13px;
+      color: #888;
+    }
+    .links {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
-<body class="antialiased">
+<body>
+  <div class="container">
+    <a href="../index.html" class="nav-back">
+      <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+    </a>
 
-  <!-- NAV -->
-  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
-    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href="../index.html#projects" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Portfolio</a>
-      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    <div class="header">
+      <h1 class="header-title">SMAHIKA</h1>
+      <div class="header-meta">
+        <span class="status-badge">Archived</span>
+        <span>Sistem manajemen sekolah berbasis web</span>
+      </div>
     </div>
-  </nav>
 
-  <main class="pt-24 pb-16 px-6">
-    <div class="max-w-3xl mx-auto">
+    <p class="description">
+      Platform manajemen sekolah terpadu dengan fitur akademik, administrasi, dan pelaporan. Sistem ini dirancang untuk SMA dengan fitur manajemen siswa, kelas, nilai, pembayaran, dan raport online. Dibangun dengan CodeIgniter 3 dan Bootstrap untuk interface responsif.
+    </p>
 
-      <!-- Header -->
-      <div class="fade-in mb-10">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">Smahika</h1>
-        <div class="flex items-center gap-3 text-sm text-zinc-400">
-          <span class="text-accent font-mono">2018 – 2026</span>
-          <span class="text-zinc-600">·</span>
-          <span class="text-xs bg-zinc-600/30 text-zinc-400 px-3 py-1 rounded-full font-medium">Local / Request Access</span>
-        </div>
-      </div>
-
-      <!-- Screenshot -->
-      <div class="fade-in mb-10 rounded-xl overflow-hidden border border-border">
-        <img src="../assets/projects/smahika.png" alt="Screenshot aplikasi Smahika" class="w-full object-cover">
-      </div>
-
-      <!-- Overview -->
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tentang Proyek</h2>
-        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-          Aplikasi internal berbasis web untuk pengelolaan data dan aktivitas sekolah. Dibangun dengan fokus pada antarmuka ringkas yang bisa digunakan oleh staf non-teknis sehari-hari, dengan pencarian cepat dan tampilan siap cetak.
-        </p>
-        <p class="text-zinc-400 text-sm leading-relaxed">
-          Dikembangkan untuk kebutuhan administrasi sekolah menengah yang membutuhkan pencatatan terpusat, tanpa harus bergantung pada spreadsheet manual atau sistem yang terlalu kompleks.
-        </p>
-      </div>
-
-      <!-- Fitur -->
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Fitur Utama</h2>
-        <ul class="space-y-2 text-zinc-400 text-sm">
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Pengelolaan data akademik & administrasi siswa</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Pencarian cepat berdasarkan nama, NIS, atau kelas</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Cetak dokumen langsung dari browser</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Antarmuka ringan untuk pengguna non-teknis</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Ekspor data untuk kebutuhan pelaporan</li>
-        </ul>
-      </div>
-
-      <!-- Tech Stack -->
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tech Stack</h2>
-        <div class="flex flex-wrap gap-2">
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">PHP</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">MySQL</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Bootstrap</span>
-        </div>
-      </div>
-
-      <!-- Request Access -->
-      <div class="fade-in mb-10 p-5 bg-card border border-border rounded-xl">
-        <p class="text-sm text-zinc-300 mb-1 font-medium">Ingin melihat demo?</p>
-        <p class="text-sm text-zinc-500">Aplikasi ini berjalan di server lokal. Hubungi saya untuk request akses preview atau konsultasi proyek serupa.</p>
-      </div>
-
+    <div class="tech-stack">
+      <div class="tech-badge">CodeIgniter 3</div>
+      <div class="tech-badge">PHP</div>
+      <div class="tech-badge">MySQL</div>
+      <div class="tech-badge">Bootstrap</div>
+      <div class="tech-badge">PDF Report</div>
     </div>
-  </main>
 
-  <script>
-    document.querySelectorAll('.fade-in').forEach(el => new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible') }, {threshold:0.1}).observe(el));
-  </script>
+    <h2 style="margin-bottom: 24px; font-size: 24px;">Fitur Utama</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <div class="feature-title">Manajemen Data Siswa</div>
+        <div class="feature-text">Database siswa lengkap dengan profil, kontak, dan riwayat akademik</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-book"></i></div>
+        <div class="feature-title">Manajemen Akademik</div>
+        <div class="feature-text">Kelas, mata pelajaran, jadwal, dan penilaian siswa</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+        <div class="feature-title">Generate Raport</div>
+        <div class="feature-text">Raport otomatis dalam format PDF dengan template profesional</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+        <div class="feature-title">Manajemen Pembayaran</div>
+        <div class="feature-text">Tracking pembayaran SPP dan biaya lainnya per siswa</div>
+      </div>
+    </div>
+
+    <p style="color: #888; margin-top: 40px; font-size: 13px;">
+      <i class="fas fa-archive"></i> Project ini telah diarsipkan dan tidak lagi dikembangkan. Disimpan untuk portfolio dan reference.
+    </p>
+  </div>
 </body>
 </html>

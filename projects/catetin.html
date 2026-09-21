@@ -4,132 +4,334 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catetin — Pandu Zenatama</title>
-  <meta name="description" content="Aplikasi pencatatan keuangan untuk warung dan toko kecil: POS, manajemen stok, laporan keuangan, export Excel.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📒</text></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: '#0a0a0a',
-            card: '#111111',
-            border: '#1a1a1a',
-            muted: '#71717a',
-            accent: '#3b82f6',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { background: #0a0a0a; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0e27;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.3s;
+    }
+    .nav-back:hover {
+      color: #0ea5e9;
+    }
+    .header {
+      margin-bottom: 60px;
+    }
+    .header-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: #888;
+    }
+    .status-badge {
+      background: #f59e0b;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .description {
+      margin-bottom: 60px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b0b0b0;
+      max-width: 800px;
+    }
+    .tech-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .tech-badge {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      color: #0ea5e9;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 1px solid #1a2332;
+      transition: all 0.3s;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 16px 12px;
+      font-size: 13px;
+      color: #e0e0e0;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .modal-close:hover {
+      background: rgba(0,0,0,1);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .feature-card {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 24px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
+    }
+    .feature-icon {
+      font-size: 28px;
+      color: #0ea5e9;
+      margin-bottom: 12px;
+    }
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+    .feature-text {
+      font-size: 13px;
+      color: #888;
+    }
+    .links {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
-<body class="antialiased">
+<body>
+  <div class="container">
+    <a href="../index.html" class="nav-back">
+      <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+    </a>
 
-  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
-    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href="../index.html#projects" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Portfolio</a>
-      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    <div class="header">
+      <h1 class="header-title">Catetin</h1>
+      <div class="header-meta">
+        <span class="status-badge">In Progress</span>
+        <span>Platform SaaS POS & manajemen warung modern</span>
+      </div>
     </div>
-  </nav>
 
-  <main class="pt-24 pb-16 px-6">
-    <div class="max-w-3xl mx-auto">
+    <p class="description">
+      Platform all-in-one untuk mengelola warung/toko modern dengan fitur POS (Point of Sale), inventory management, customer management, penjualan, dan analytics. Dibangun dengan Next.js 16 dan Supabase untuk skalabilitas tinggi. Aplikasi mobile-first dengan dark theme profesional dan UX intuitif untuk pemilik warung.
+    </p>
 
-      <div class="fade-in mb-10">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">Catetin</h1>
-        <div class="flex items-center gap-3 text-sm text-zinc-400">
-          <span class="text-accent font-mono">2026</span>
-          <span class="text-zinc-600">·</span>
-          <span class="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full font-medium">Active</span>
-        </div>
-      </div>
-
-      <div class="fade-in mb-10 rounded-xl overflow-hidden border border-border bg-card/50">
-        <img src="../assets/projects/catetin-onboarding.jpg" alt="Catetin mobile app onboarding screen" style="width:100%;height:auto;display:block;">
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-4">Screenshot Fitur</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-8711fa68ea58.jpg" alt="Dashboard" style="width:100%;height:auto;display:block;">
-          </div>
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-4612b03c8c7d.jpg" alt="Inventory" style="width:100%;height:auto;display:block;">
-          </div>
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-585a39853fb7.jpg" alt="Sales" style="width:100%;height:auto;display:block;">
-          </div>
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-9502fa7490b1.jpg" alt="Receivables" style="width:100%;height:auto;display:block;">
-          </div>
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-8b1d9e4b895d.jpg" alt="Supplier Debt" style="width:100%;height:auto;display:block;">
-          </div>
-          <div style="border-radius:12px;overflow:hidden;border:1px solid #1a1a1a;cursor:pointer;transition:transform 0.2s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.borderColor='#3b82f6';" onmouseout="this.style.transform='scale(1)';this.style.borderColor='#1a1a1a';">
-            <img src="../assets/projects/catetin-b92b1e74ccd2.jpg" alt="Expenses" style="width:100%;height:auto;display:block;">
-          </div>
-        </div>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tentang Proyek</h2>
-        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-          Aplikasi pencatatan keuangan untuk warung dan toko kecil. Dirancang untuk UMKM yang butuh pencatatan simpel tapi tetap powerful — dari pencatatan harian hingga laporan bulanan, tanpa perlu spreadsheet manual atau software akuntansi yang berat.
-        </p>
-        <p class="text-zinc-400 text-sm leading-relaxed">
-          Proyek inti yang sedang aktif dikembangkan. Dibangun dari awal dengan stack modern (Next.js + Supabase) untuk menjamin kecepatan, keamanan data, dan kemudahan maintainability.
-        </p>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Fitur Utama</h2>
-        <ul class="space-y-2 text-zinc-400 text-sm">
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Point of Sale (POS) — pencatatan jual beli harian</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Manajemen stok — tracking barang masuk/keluar</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Piutang & hutang — pencatatan kredit dan tempo</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Laporan keuangan harian & bulanan</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Export ke Excel (.xlsx) untuk arsip atau cetak</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Mobile-friendly — bisa diakses dari HP</li>
-        </ul>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tech Stack</h2>
-        <div class="flex flex-wrap gap-2">
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Next.js 16</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">TypeScript</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Supabase</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">PostgreSQL</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Tailwind CSS</span>
-        </div>
-      </div>
-
-      <div class="fade-in mb-10 p-5 bg-card border border-border rounded-xl">
-        <p class="text-sm text-zinc-300 mb-1 font-medium">Mencari solusi pencatatan keuangan?</p>
-        <p class="text-sm text-zinc-500">Catetin dirancang dari pengalaman langsung menangani kebutuhan UMKM. Hubungi saya untuk konsultasi, demo, atau collab pengembangan lebih lanjut.</p>
-      </div>
-
+    <div class="tech-stack">
+      <div class="tech-badge">Next.js 16</div>
+      <div class="tech-badge">Supabase (PostgreSQL)</div>
+      <div class="tech-badge">TypeScript</div>
+      <div class="tech-badge">Tailwind CSS</div>
+      <div class="tech-badge">React Hooks</div>
+      <div class="tech-badge">Real-time Sync</div>
     </div>
-  </main>
+
+    <h2 style="margin-bottom: 24px; font-size: 24px;">Fitur Utama</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-cash-register"></i></div>
+        <div class="feature-title">POS System</div>
+        <div class="feature-text">Sistem kasir modern dengan multiple payment methods dan receipt printing</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-boxes"></i></div>
+        <div class="feature-title">Inventory Management</div>
+        <div class="feature-text">Tracking stok real-time, automated reorder alerts, dan stock history</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <div class="feature-title">Customer Management</div>
+        <div class="feature-text">Database pelanggan, loyalty program, dan transaction history</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="feature-title">Analytics & Reporting</div>
+        <div class="feature-text">Dashboard insights, sales analytics, profit margin, dan performance metrics</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="feature-title">Mobile-First Design</div>
+        <div class="feature-text">Responsive design yang optimal untuk tablet dan smartphone</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-sync"></i></div>
+        <div class="feature-title">Real-Time Sync</div>
+        <div class="feature-text">Synchronisasi data real-time across devices dengan Supabase</div>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom: 24px; font-size: 24px;">Screenshots</h2>
+    <div class="gallery">
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/catetin-onboarding.jpg" alt="Onboarding">
+        <div class="gallery-label">Onboarding - Setup Awal</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/catetin.png" alt="POS">
+        <div class="gallery-label">POS Interface - Transaksi</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/catetin-8b1d9e4b895d.jpg" alt="Dashboard">
+        <div class="gallery-label">Dashboard - Analytics</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/catetin-585a39853fb7.jpg" alt="Inventory">
+        <div class="gallery-label">Inventory Management</div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="modalImage" src="" alt="">
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+
+    <div class="links">
+      <a href="http://localhost:3001" class="btn btn-primary" target="_blank">
+        <i class="fas fa-external-link-alt"></i> Coba Live
+      </a>
+    </div>
+  </div>
 
   <script>
-    document.querySelectorAll('.fade-in').forEach(el => new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible') }, {threshold:0.1}).observe(el));
+    function openModal(element) {
+      const img = element.querySelector('img');
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('modal').classList.add('active');
+    }
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
   </script>
 </body>
 </html>

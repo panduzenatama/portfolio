@@ -4,203 +4,342 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>e-Presensi — Pandu Zenatama</title>
-  <meta name="description" content="Sistem manajemen absensi berbasis QR code untuk sekolah dan lembaga pendidikan. Integrasi real-time, laporan PDF, dan dashboard admin.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: '#0a0a0a',
-            card: '#111111',
-            border: '#1a1a1a',
-            muted: '#71717a',
-            accent: '#3b82f6',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { background: #0a0a0a; }
-    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .gallery-item { border-radius: 0.75rem; overflow: hidden; border: 1px solid #1a1a1a; cursor: pointer; transition: all 0.3s ease; }
-    .gallery-item:hover { border-color: #3b82f6; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1); }
-    .gallery-item img { width: 100%; height: auto; display: block; }
-    .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
-    .lightbox.active { display: flex; }
-    .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; }
-    .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; cursor: pointer; font-size: 32px; background: rgba(0,0,0,0.5); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s; }
-    .lightbox-close:hover { background: rgba(0,0,0,0.8); }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0e27;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.3s;
+    }
+    .nav-back:hover {
+      color: #0ea5e9;
+    }
+    .header {
+      margin-bottom: 60px;
+    }
+    .header-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: #888;
+    }
+    .status-badge {
+      background: #10b981;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .description {
+      margin-bottom: 60px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b0b0b0;
+      max-width: 800px;
+    }
+    .tech-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .tech-badge {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      color: #0ea5e9;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 1px solid #1a2332;
+      transition: all 0.3s;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 16px 12px;
+      font-size: 13px;
+      color: #e0e0e0;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .modal-close:hover {
+      background: rgba(0,0,0,1);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1a2332;
+    }
+    .feature-card {
+      background: #1a2332;
+      border: 1px solid #2a3a4d;
+      padding: 24px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
+    }
+    .feature-icon {
+      font-size: 28px;
+      color: #0ea5e9;
+      margin-bottom: 12px;
+    }
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
+    .feature-text {
+      font-size: 13px;
+      color: #888;
+    }
+    .links {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
-<body class="antialiased">
+<body>
+  <div class="container">
+    <a href="../index.html" class="nav-back">
+      <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+    </a>
 
-  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
-    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href="../index.html#projects" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Portfolio</a>
-      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    <div class="header">
+      <h1 class="header-title">e-Presensi</h1>
+      <div class="header-meta">
+        <span class="status-badge">Complete</span>
+        <span>Sistem manajemen kehadiran QR code untuk sekolah</span>
+      </div>
     </div>
-  </nav>
 
-  <main class="pt-24 pb-16 px-6">
-    <div class="max-w-4xl mx-auto">
+    <p class="description">
+      Platform komprehensif untuk manajemen kehadiran siswa menggunakan QR code. Sistem ini dirancang untuk sekolah modern dengan fitur dashboard admin, multi-role access, pencatatan real-time, dan laporan PDF terstruktur. Admin dapat mengelola kelas, siswa, dan jadwal, sementara siswa dapat melihat riwayat kehadiran mereka.
+    </p>
 
-      <div class="fade-in mb-10">
-        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
-        <h1 class="text-3xl md:text-4xl font-bold mb-3">e-Presensi</h1>
-        <div class="flex items-center gap-3 text-sm text-zinc-400">
-          <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-medium">Complete</span>
-        </div>
-      </div>
-
-      <div class="fade-in mb-12">
-        <h2 class="text-lg font-semibold mb-4">Screenshots</h2>
-        <div class="gallery-grid">
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-login.png', 'Login Interface')">
-            <img src="../assets/projects/e-presensi-login.png" alt="Login Interface">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">Login Interface</p>
-            </div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-dashboard.png', 'Admin Dashboard')">
-            <img src="../assets/projects/e-presensi-dashboard.png" alt="Admin Dashboard">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">Dashboard</p>
-            </div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-admin-user.png', 'User Management')">
-            <img src="../assets/projects/e-presensi-admin-user.png" alt="User Management">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">User Management</p>
-            </div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-admin-class.png', 'Class Management')">
-            <img src="../assets/projects/e-presensi-admin-class.png" alt="Class Management">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">Class Management</p>
-            </div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-attendance.png', 'Attendance Module')">
-            <img src="../assets/projects/e-presensi-attendance.png" alt="Attendance Module">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">Attendance</p>
-            </div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox('../assets/projects/e-presensi-report.png', 'Report Generation')">
-            <img src="../assets/projects/e-presensi-report.png" alt="Report Generation">
-            <div class="p-3 bg-card border-t border-border">
-              <p class="text-xs font-mono text-muted">Report</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-          <img id="lightbox-img" src="" alt="">
-          <div class="lightbox-close" onclick="closeLightbox()">×</div>
-        </div>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tentang Proyek</h2>
-        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-          Sistem manajemen absensi terintegrasi untuk sekolah dan lembaga pendidikan. Menggunakan teknologi QR code untuk pencatatan absensi real-time, dilengkapi dashboard admin untuk monitoring kehadiran siswa dan laporan PDF otomatis.
-        </p>
-        <p class="text-zinc-400 text-sm leading-relaxed">
-          Dibangun dengan CodeIgniter 3 sebagai backend dan MySQL sebagai database. Fitur utama mencakup multi-role access (admin & siswa), manajemen kelas, event absensi, dan sistem permission untuk ijin/sakit.
-        </p>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Fitur Utama</h2>
-        <ul class="space-y-2 text-zinc-400 text-sm">
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> QR code scanning — absensi masuk/keluar real-time</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Dashboard admin — monitoring kehadiran per siswa/kelas</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Manajemen siswa & kelas — CRUD lengkap</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Event absensi — buat dan atur waktu event</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Sistem permission — ijin/sakit dengan dokumen upload</li>
-          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Export PDF — laporan attendance per siswa/kelas</li>
-        </ul>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Tech Stack</h2>
-        <div class="flex flex-wrap gap-2">
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">CodeIgniter 3</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">PHP 8.3</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">MySQL</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Bootstrap 4</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">phpqrcode</span>
-          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">mPDF</span>
-        </div>
-      </div>
-
-      <div class="fade-in mb-10">
-        <h2 class="text-lg font-semibold mb-3">Highlight Teknis</h2>
-        <ul class="space-y-2 text-zinc-400 text-sm">
-          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Enkripsi URL parameter untuk keamanan data siswa</li>
-          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Kompilasi ekstensi PHP GD untuk QR generation native</li>
-          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Docker setup dengan PHP-FPM + MySQL untuk development</li>
-          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Bcrypt password hashing untuk autentikasi secure</li>
-          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Multi-role controller dengan authorization checks</li>
-        </ul>
-      </div>
-
-      <div class="fade-in mb-16">
-        <h2 class="text-lg font-semibold mb-4">Links</h2>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://github.com/panduzenatama/e-presensi" target="_blank" class="text-sm px-4 py-2 rounded-lg border border-accent/30 hover:border-accent hover:bg-accent/5 transition-colors text-accent font-medium">
-            GitHub Repository →
-          </a>
-          <a href="http://localhost:8000/e-presensi/" target="_blank" class="text-sm px-4 py-2 rounded-lg border border-accent/30 hover:border-accent hover:bg-accent/5 transition-colors text-accent font-medium">
-            Demo Lokal →
-          </a>
-        </div>
-      </div>
-
+    <div class="tech-stack">
+      <div class="tech-badge">PHP (CodeIgniter)</div>
+      <div class="tech-badge">MySQL</div>
+      <div class="tech-badge">Bootstrap</div>
+      <div class="tech-badge">QR Code</div>
+      <div class="tech-badge">PDF Export</div>
+      <div class="tech-badge">Responsive</div>
     </div>
-  </main>
+
+    <h2 style="margin-bottom: 24px; font-size: 24px;">Fitur Utama</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+        <div class="feature-title">QR Code Scanner</div>
+        <div class="feature-text">Scanning QR code untuk pencatatan kehadiran siswa secara real-time</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+        <div class="feature-title">Dashboard Admin</div>
+        <div class="feature-text">Ringkasan kehadiran kelas, persentase, dan trend kehadiran siswa</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
+        <div class="feature-title">Manajemen Kelas & Siswa</div>
+        <div class="feature-text">CRUD lengkap untuk mengelola kelas, siswa, dan jadwal pembelajaran</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-book"></i></div>
+        <div class="feature-title">Riwayat Kehadiran</div>
+        <div class="feature-text">Pencatatan detail kehadiran siswa per hari dengan filter dan pencarian</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+        <div class="feature-title">Laporan PDF</div>
+        <div class="feature-text">Generate laporan kehadiran bulanan/tahunan dalam format PDF profesional</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+        <div class="feature-title">Multi-Role Access</div>
+        <div class="feature-text">Admin dan student roles dengan kontrol akses berbasis keperluan</div>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom: 24px; font-size: 24px;">Screenshots</h2>
+    <div class="gallery">
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-login.png" alt="Login">
+        <div class="gallery-label">Login - e-Presensi</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-dashboard.png" alt="Dashboard">
+        <div class="gallery-label">Dashboard Admin</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-admin-user.png" alt="Admin Users">
+        <div class="gallery-label">Manajemen Admin & User</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-admin-class.png" alt="Manajemen Kelas">
+        <div class="gallery-label">Manajemen Kelas</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-attendance.png" alt="Kehadiran">
+        <div class="gallery-label">Pencatatan Kehadiran</div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="../assets/projects/e-presensi-report.png" alt="Laporan">
+        <div class="gallery-label">Laporan Kehadiran</div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="modalImage" src="" alt="">
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+
+    <div class="links">
+      <a href="http://localhost:8000/e-presensi/" class="btn btn-primary" target="_blank">
+        <i class="fas fa-external-link-alt"></i> Coba Live
+      </a>
+    </div>
+  </div>
 
   <script>
-    document.querySelectorAll('.fade-in').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), i * 150);
-    });
-
-    function openLightbox(src, alt) {
-      const lightbox = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      img.src = src;
-      img.alt = alt;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function openModal(element) {
+      const img = element.querySelector('img');
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('modal').classList.add('active');
     }
-
-    function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
     }
-
-    // Close lightbox on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
-    });
   </script>
-
 </body>
 </html>
