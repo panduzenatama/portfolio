@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e-Presensi — Pandu Zenatama</title>
+  <meta name="description" content="Sistem manajemen absensi berbasis QR code untuk sekolah dan lembaga pendidikan. Integrasi real-time, laporan PDF, dan dashboard admin.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0a0a0a',
+            card: '#111111',
+            border: '#1a1a1a',
+            muted: '#71717a',
+            accent: '#3b82f6',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: #0a0a0a; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #e4e4e7; background: #0a0a0a; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="../index.html#projects" class="text-sm text-muted hover:text-zinc-100 transition-colors">← Kembali ke Portfolio</a>
+      <a href="../index.html" class="font-semibold text-sm tracking-tight">pandu<span class="text-accent">.</span></a>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-16 px-6">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="fade-in mb-10">
+        <p class="text-sm text-muted font-mono mb-3 tracking-wider">PROYEK</p>
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">e-Presensi</h1>
+        <div class="flex items-center gap-3 text-sm text-zinc-400">
+          <span class="text-accent font-mono">2025</span>
+          <span class="text-zinc-600">·</span>
+          <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-medium">Complete</span>
+        </div>
+      </div>
+
+      <div class="fade-in mb-10 rounded-xl overflow-hidden border border-border">
+        <div class="screenshot-placeholder" style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a472a 0%,#0f3d1f 50%,#0a2610 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:20px;left:20px;font-size:14px;color:rgba(255,255,255,0.4);font-family:monospace;">admin@presensi.id</div>
+          <div style="position:absolute;bottom:40%;left:50%;transform:translateX(-50%);text-align:center;opacity:0.3;">
+            <div style="font-size:48px;margin-bottom:10px;">📱</div>
+            <div style="color:rgba(255,255,255,0.3);font-size:12px;">QR Code Scan</div>
+          </div>
+          <div style="position:absolute;bottom:20px;right:20px;font-size:12px;color:rgba(52,211,153,0.5);font-family:monospace;">HTTP 200</div>
+        </div>
+      </div>
+
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Tentang Proyek</h2>
+        <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+          Sistem manajemen absensi terintegrasi untuk sekolah dan lembaga pendidikan. Menggunakan teknologi QR code untuk pencatatan absensi real-time, dilengkapi dashboard admin untuk monitoring kehadiran siswa dan laporan PDF otomatis.
+        </p>
+        <p class="text-zinc-400 text-sm leading-relaxed">
+          Dibangun dengan CodeIgniter 3 sebagai backend dan MySQL sebagai database. Fitur utama mencakup multi-role access (admin & siswa), manajemen kelas, event absensi, dan sistem permission untuk ijin/sakit.
+        </p>
+      </div>
+
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Fitur Utama</h2>
+        <ul class="space-y-2 text-zinc-400 text-sm">
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> QR code scanning — absensi masuk/keluar real-time</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Dashboard admin — monitoring kehadiran per siswa/kelas</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Manajemen siswa & kelas — CRUD lengkap</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Event absensi — buat dan atur waktu event</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Sistem permission — ijin/sakit dengan dokumen upload</li>
+          <li class="flex items-start gap-2"><span class="text-accent mt-1">→</span> Export PDF — laporan attendance per siswa/kelas</li>
+        </ul>
+      </div>
+
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Tech Stack</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">CodeIgniter 3</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">PHP 8.3</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">MySQL</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">Bootstrap 4</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">phpqrcode</span>
+          <span class="tech-pill text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full cursor-default">mPDF</span>
+        </div>
+      </div>
+
+      <div class="fade-in mb-10">
+        <h2 class="text-lg font-semibold mb-3">Highlight Teknis</h2>
+        <ul class="space-y-2 text-zinc-400 text-sm">
+          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Enkripsi URL parameter untuk keamanan data siswa</li>
+          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Kompilasi ekstensi PHP GD untuk QR generation native</li>
+          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Docker setup dengan PHP-FPM + MySQL untuk development</li>
+          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Bcrypt password hashing untuk autentikasi secure</li>
+          <li class="flex items-start gap-2"><span class="text-zinc-600">•</span> Multi-role controller dengan authorization checks</li>
+        </ul>
+      </div>
+
+      <div class="fade-in mb-16">
+        <h2 class="text-lg font-semibold mb-4">Links</h2>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://github.com/panduzenatama/e-presensi" target="_blank" class="text-sm px-4 py-2 rounded-lg border border-accent/30 hover:border-accent hover:bg-accent/5 transition-colors text-accent font-medium">
+            GitHub Repository →
+          </a>
+          <a href="http://localhost:8000/e-presensi/" target="_blank" class="text-sm px-4 py-2 rounded-lg border border-accent/30 hover:border-accent hover:bg-accent/5 transition-colors text-accent font-medium">
+            Demo Lokal →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 150);
+    });
+  </script>
+
+</body>
+</html>
